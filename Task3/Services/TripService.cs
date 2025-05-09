@@ -11,6 +11,7 @@ public class TripService : ITripService
     {
         var trips = new List<TripDTO>();
         
+        //Gets all trip information
         string query = @"
                 SELECT TripID, Name, Description, DateFrom, DateTo, MaxPeople
                 FROM Trips";

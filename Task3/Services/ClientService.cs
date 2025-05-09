@@ -10,7 +10,8 @@ public class ClientService : IClientService
     public async Task<List<ClientTripDTO>> GetClientTrips(int clientId)
     {
         var trips = new List<ClientTripDTO>();
-
+        
+        //Get all trips a specific client is registered for
         string query = @"
         SELECT t.TripID, t.Name, t.Description, t.DateFrom, t.DateTo, t.MaxPeople,
                ct.RegisteredAt, ct.PaymentDone
@@ -72,6 +73,7 @@ public class ClientService : IClientService
                 throw new ArgumentException("All fields are required.");
             }
 
+            //Counts instances to new client PESEL to avoid duplicate
             var checkCmd = new SqlCommand("SELECT COUNT(*) FROM Client WHERE Pesel = @Pesel", conn);
             checkCmd.Parameters.AddWithValue("@Pesel", client.Pesel);
             var exists = (int)await checkCmd.ExecuteScalarAsync() > 0;
@@ -81,6 +83,7 @@ public class ClientService : IClientService
                 throw new InvalidOperationException("A client with this PESEL already exists.");
             }
 
+            //Insertion of new client after confirming client PESEL is unique
             var cmd = new SqlCommand(@"
             INSERT INTO Client (FirstName, LastName, Email, Telephone, Pesel)
             VALUES (@FirstName, @LastName, @Email, @Telephone, @Pesel)", conn);

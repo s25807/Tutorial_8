@@ -16,6 +16,7 @@ namespace Task3.Controllers
             _clientService = clientService;
         }
 
+        //under GET /api/clients/{id}/trips gets all trips of a particular client
         [HttpGet("{clientId}/trips")]
         public async Task<IActionResult> GetClientTrips(int clientId)
         {
@@ -29,6 +30,7 @@ namespace Task3.Controllers
             return Ok(trips);
         }
         
+        //under POST /api/clients enables creation of new client
         [HttpPost]
         public async Task<IActionResult> CreateClient([FromBody] ClientDTO clientDTO)
         {
