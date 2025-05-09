@@ -11,8 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
-      <Folder Include="Services\" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.4" />
     </ItemGroup>
 
 </Project>
